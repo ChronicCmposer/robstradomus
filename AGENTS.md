@@ -1,0 +1,16 @@
+- **Robstradomus Idle**: A 2D idle RPG where a wizard automatically battles monsters on a grid.
+- **Core Loop**: Wizard fights monsters, gains XP and resources (Gold, Mana, Rubies), and the player spends these on permanent combat upgrades.
+- **Key Files**: 
+    - `main.js`: Bootstraps the game and UI logic.
+    - `game.js`: Manages the game state, AI, and combat loop.
+    - `entity.js`: Defines Wizard and Monster behaviors.
+    - `constants.js`: Asset paths and configuration.
+- **Assets**: 
+    - Wizard, Slime, Skeleton, Dragon sprites.
+    - Tiled backgrounds for Grass, Sand, and Dungeon.
+    - Ambient mystical music and combat SFX.
+- **Controls**: 
+    - Click "Start Farming" to begin.
+    - Click Upgrade buttons to spend resources.
+    - Click Map buttons to change farming location.
+- **Status**: Validation passed, runtime stable.
