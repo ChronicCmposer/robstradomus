@@ -1,6 +1,6 @@
 ---
-status: not-started
-phase: 1
+status: in-progress
+phase: 2
 updated: 2026-09-13
 ---
 
@@ -28,11 +28,11 @@ Refactor the Rosebud-exported Robstradomus idle game (~20.7k lines) into a typed
 | Pin Node.js 24.21.0 (active LTS) + TypeScript 7.0.2 (latest stable) | Concrete, reproducible toolchain; Node 24 LTS is the active support line, TS 7.0 is the Go-native rewrite | `ref:striking-rose-pig` |
 | Pin Vite 8.2.2 (current stable) | Vite 8 unifies on the Rust/Rolldown bundler (10–30x faster builds, plugin-compatible); current line gets active fixes | `ref:striking-rose-pig` |
 
-## Phase 1: Tooling Scaffold [PENDING]
-- [ ] **1.1 Init package.json (npm), install vite@8.2.2, typescript@7.0.2, vitest** ← CURRENT
-- [ ] 1.2 Create vite.config.ts (base './'), tsconfig.json (strict for new code), vitest config; add `.nvmrc` with `24.21.0` and an `engines` field `"node": ">=24.21.0"` in package.json
-- [ ] 1.3 Serve existing game through Vite dev server (index.html entry; assets via public/ or base './') — verify gameplay unchanged
-- [ ] 1.4 Extract ~7,245 lines inline CSS from index.html into src/styles/*.css, imported via main entry — index.html slims to ~700 lines
+## Phase 1: Tooling Scaffold [COMPLETE]
+- [x] **1.1 Init package.json (npm), install vite@8.2.2, typescript@7.0.2, vitest**
+- [x] 1.2 Create vite.config.ts (base './'), tsconfig.json (strict for new code), vitest config; add `.nvmrc` with `24.21.0` and an `engines` field `"node": ">=24.21.0"` in package.json
+- [x] 1.3 Serve existing game through Vite dev server (index.html entry; assets via public/ or base './') — verify gameplay unchanged
+- [x] 1.4 Extract ~7,245 lines inline CSS from index.html into src/styles/*.css, imported via main entry — index.html slims to ~700 lines
 
 ## Phase 2: Rosebud Elimination [PENDING]
 - [ ] 2.1 Remove 4 CDN scripts (ChatManager/ImageGenerator/ProgressLogger/OGP) from index.html → `ref:whole-bronze-otter`
