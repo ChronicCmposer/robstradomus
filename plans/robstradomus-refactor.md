@@ -25,10 +25,12 @@ Refactor the Rosebud-exported Robstradomus idle game (~20.7k lines) into a typed
 | Deploy target: local dev only | Vite default; set `base: './'` for drop-anywhere static portability later | `ref:striking-rose-pig` |
 | Keep art/sound_direction.md; rewrite AGENTS.md | Design docs are assets; AGENTS.md must describe the new architecture; export-metadata.json deleted with Rosebud elimination | `ref:striking-rose-pig` |
 | Opportunistic bug fixing with logged list | Each bug found → fixed in the stage that touches its code + regression test | `ref:striking-rose-pig` |
+| Pin Node.js 24.21.0 (active LTS) + TypeScript 7.0.2 (latest stable) | Concrete, reproducible toolchain; Node 24 LTS is the active support line, TS 7.0 is the Go-native rewrite | `ref:striking-rose-pig` |
+| Pin Vite 8.2.2 (current stable) | Vite 8 unifies on the Rust/Rolldown bundler (10–30x faster builds, plugin-compatible); current line gets active fixes | `ref:striking-rose-pig` |
 
 ## Phase 1: Tooling Scaffold [PENDING]
-- [ ] **1.1 Init package.json (npm), install vite, typescript, vitest** ← CURRENT
-- [ ] 1.2 Create vite.config.ts (base './'), tsconfig.json (strict for new code), vitest config
+- [ ] **1.1 Init package.json (npm), install vite@8.2.2, typescript@7.0.2, vitest** ← CURRENT
+- [ ] 1.2 Create vite.config.ts (base './'), tsconfig.json (strict for new code), vitest config; add `.nvmrc` with `24.21.0` and an `engines` field `"node": ">=24.21.0"` in package.json
 - [ ] 1.3 Serve existing game through Vite dev server (index.html entry; assets via public/ or base './') — verify gameplay unchanged
 - [ ] 1.4 Extract ~7,245 lines inline CSS from index.html into src/styles/*.css, imported via main entry — index.html slims to ~700 lines
 
@@ -85,3 +87,6 @@ Refactor the Rosebud-exported Robstradomus idle game (~20.7k lines) into a typed
 - 2026-09-13: Grilling session concluded — all 14 design decisions settled with user (Q1–Q14). Stack: ES modules + Vite + TS + vitest. Rosebud fully eliminated. Save schema fresh v1. Balance frozen. `ref:striking-rose-pig`, `ref:whole-bronze-otter`
 - 2026-09-13: Node 18+/npm/npx available at /usr/bin/; no package.json exists yet `ref:whole-bronze-otter`
 - 2026-09-13: git.cmposer.cc remote (origin) healthy; repo on main; global gitconfig defaultObjectFormat sha256 removed to avoid sha256/sha1 mismatches
+- 2026-09-13: Toolchain version pins — Node.js **24.21.0** (active LTS, "Krypton") and TypeScript **7.0.2** (latest stable, Go-native rewrite) confirmed via web research `ref:striking-rose-pig`
+- 2026-09-13: Toolchain version pin — Vite **8.2.2** (current stable; single Rolldown bundler) `ref:striking-rose-pig`
+- 2026-09-13: Add an `.nvmrc` file at the project root containing `24.21.0` (matches the pinned Node LTS; nvm is now installed and defaulted to v24.21.0)
