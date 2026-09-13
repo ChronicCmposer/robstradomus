@@ -1,3 +1,4 @@
+import './src/styles/fonts.css';
 import './src/styles/game.css';
 import { Game } from './game.js';
 import {
