@@ -1,6 +1,6 @@
 ---
 status: in-progress
-phase: 2
+phase: 3
 updated: 2026-09-13
 ---
 
@@ -34,11 +34,11 @@ Refactor the Rosebud-exported Robstradomus idle game (~20.7k lines) into a typed
 - [x] 1.3 Serve existing game through Vite dev server (index.html entry; assets via public/ or base './') — verify gameplay unchanged
 - [x] 1.4 Extract ~7,245 lines inline CSS from index.html into src/styles/*.css, imported via main entry — index.html slims to ~700 lines
 
-## Phase 2: Rosebud Elimination [PENDING]
-- [ ] 2.1 Remove 4 CDN scripts (ChatManager/ImageGenerator/ProgressLogger/OGP) from index.html → `ref:whole-bronze-otter`
-- [ ] 2.2 Remove splash markup + inline splash script, `__rosebud/`, rosebud-game-defaults.js/.css, export-metadata.json
-- [ ] 2.3 Delete `window.ProgressLogger.logProgress('game_initialized')` call in main.js
-- [ ] 2.4 Verify: dev server boots, game plays, Network tab shows zero external requests
+## Phase 2: Rosebud Elimination [COMPLETE]
+- [x] 2.1 Remove 4 CDN scripts (ChatManager/ImageGenerator/ProgressLogger/OGP) from index.html → `ref:whole-bronze-otter`
+- [x] 2.2 Remove splash markup + inline splash script, `__rosebud/`, rosebud-game-defaults.js/.css, export-metadata.json
+- [x] 2.3 Delete `window.ProgressLogger.logProgress('game_initialized')` call in main.js
+- [x] 2.4 Verify: dev server boots, game plays, Network tab shows zero external requests
 
 ## Phase 3: Data Layer Split [PENDING]
 - [ ] 3.1 constants.js (1,774 lines) → src/data/*.ts: assets.ts, items.ts, recipes.ts, maps.ts, waves.ts, monsters.ts, balance.ts — pure moves, balance numbers frozen
@@ -90,3 +90,4 @@ Refactor the Rosebud-exported Robstradomus idle game (~20.7k lines) into a typed
 - 2026-09-13: Toolchain version pins — Node.js **24.21.0** (active LTS, "Krypton") and TypeScript **7.0.2** (latest stable, Go-native rewrite) confirmed via web research `ref:striking-rose-pig`
 - 2026-09-13: Toolchain version pin — Vite **8.2.2** (current stable; single Rolldown bundler) `ref:striking-rose-pig`
 - 2026-09-13: Add an `.nvmrc` file at the project root containing `24.21.0` (matches the pinned Node LTS; nvm is now installed and defaulted to v24.21.0)
+- 2026-09-13: Phase 2 (Rosebud Elimination) complete — removed 4 CDN scripts, splash markup/CSS/script, __rosebud/, rosebud-game-defaults.js/.css, export-metadata.json, and the ProgressLogger telemetry call. Dev server boots, tests + typecheck pass, zero game-runtime external requests.

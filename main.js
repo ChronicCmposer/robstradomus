@@ -3577,6 +3577,4 @@ window.addEventListener('load', () => {
     uiPanels.forEach(p => {
         p.addEventListener('mousedown', e => e.stopPropagation());
     });
-
-    window.ProgressLogger.logProgress('game_initialized');
 });
