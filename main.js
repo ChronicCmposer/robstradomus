@@ -1,3 +1,5 @@
+import './src/styles/fonts.css';
+import './src/styles/game.css';
 import { Game } from './game.js';
 import {
     DESIGN_WIDTH,
@@ -3576,6 +3578,4 @@ window.addEventListener('load', () => {
     uiPanels.forEach(p => {
         p.addEventListener('mousedown', e => e.stopPropagation());
     });
-
-    window.ProgressLogger.logProgress('game_initialized');
 });
