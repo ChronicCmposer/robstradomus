@@ -13,6 +13,7 @@ STACK_REGION="us-east-2"
 TEMPLATE="cloudformation/stack.yaml"
 
 echo "=== [1/7] DNS guard: confirm ${DOMAIN} has no A record ==="
+command -v dig >/dev/null 2>&1 || { echo "ERROR: dig not found -> install dnsutils" >&2; exit 1; }
 records="$(dig +short "${DOMAIN}" || true)"
 if grep -qE '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' <<<"${records}"; then
   echo "ERROR: ${DOMAIN} resolves to an IPv4 A record — a stale DDNS host or A record exists." >&2
@@ -26,7 +27,7 @@ echo "Clean slate: no A record for ${DOMAIN}."
 echo "=== [2/7] ACM certificate (${CERT_REGION}) ==="
 cert_arn="$(aws acm list-certificates \
   --region "${CERT_REGION}" \
-  --query "CertificateSummaryList[?DomainName=='${DOMAIN}'].CertificateArn | [0]" \
+  --query "CertificateSummaryList[?DomainName=='${DOMAIN}' && Status=='ISSUED'].CertificateArn | [0]" \
   --output text)"
 if [ -z "${cert_arn}" ] || [ "${cert_arn}" = "None" ]; then
   echo "No existing certificate for ${DOMAIN}; requesting one..."
@@ -121,7 +122,7 @@ fi
 echo "Certificate ISSUED."
 
 echo "=== [4/7] Create/update CloudFormation stack (${STACK_REGION}) ==="
-stack_params="ParameterKey=DomainName,ParameterValue=${DOMAIN} ParameterKey=BucketName,ParameterValue=${BUCKET} ParameterKey=CertificateArn,ParameterValue=${cert_arn}"
+stack_params=(ParameterKey=DomainName,ParameterValue="${DOMAIN}" ParameterKey=BucketName,ParameterValue="${BUCKET}" ParameterKey=CertificateArn,ParameterValue="${cert_arn}")
 
 operation=""
 if aws cloudformation describe-stacks --region "${STACK_REGION}" --stack-name "${STACK_NAME}" >/dev/null 2>&1; then
@@ -131,7 +132,7 @@ if aws cloudformation describe-stacks --region "${STACK_REGION}" --stack-name "$
     --region "${STACK_REGION}" \
     --stack-name "${STACK_NAME}" \
     --template-body "file://${TEMPLATE}" \
-    --parameters ${stack_params} \
+    --parameters "${stack_params[@]}" \
     --capabilities CAPABILITY_NAMED_IAM 2>&1)"; then
     if printf '%s\n' "${update_output}" | grep -q "No updates are to be performed"; then
       echo "No updates are to be performed — stack is already current."
@@ -149,7 +150,7 @@ else
     --region "${STACK_REGION}" \
     --stack-name "${STACK_NAME}" \
     --template-body "file://${TEMPLATE}" \
-    --parameters ${stack_params} \
+    --parameters "${stack_params[@]}" \
     --capabilities CAPABILITY_NAMED_IAM
 fi
 

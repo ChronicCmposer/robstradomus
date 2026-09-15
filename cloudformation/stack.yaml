@@ -96,12 +96,13 @@ Resources:
           AcmCertificateArn: !Ref CertificateArn
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
-        # SPA-style fallback: 403/404 (missing object, e.g. deep link) serve index.html as 200.
+        # SPA-style fallback for deep links. The bucket is private with OAC and the policy
+        # grants only s3:GetObject (no s3:ListBucket), so S3 cannot tell "missing key" from
+        # "forbidden" and answers 403 Access Denied for any key that does not exist. The
+        # 403 -> 200 /index.html mapping below is therefore what makes deep-link fallback
+        # work — keep it, and do not map other error codes to 200.
         CustomErrorResponses:
           - ErrorCode: 403
-            ResponseCode: 200
-            ResponsePagePath: /index.html
-          - ErrorCode: 404
             ResponseCode: 200
             ResponsePagePath: /index.html
 
