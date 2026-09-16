@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "VITE_APP_VERSION=$(git describe --tags --exact-match 2>/dev/null || echo v0.0.0-devel) vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"

@@ -9,9 +9,14 @@
 #   make deploy     one-time stack lifecycle (ACM cert + CloudFormation)
 #   make purge      invalidate /* on CloudFront (asset-change escape hatch)
 #
+# Versioning (tags-only, bump line is main):
+#   make bump-version LEVEL=major|minor|patch
+#                   create + push the next vX.Y.Z tag to origin and github
+#   make release    build + publish the tagged version to GitHub releases
+#
 # Regions: ACM cert us-east-1, bucket + CloudFormation us-east-2, CloudFront global.
 
-.PHONY: dev build test typecheck preview publish deploy purge help
+.PHONY: dev build test typecheck preview publish deploy purge bump-version release help
 
 dev:
 	@npm run dev
@@ -58,5 +63,11 @@ purge:
 		--id "$$invalidation_id"; \
 	echo "Purge complete."
 
+bump-version:
+	@bash scripts/bump-version.sh $(LEVEL)
+
+release:
+	@bash scripts/release.sh
+
 help:
-	@echo "Targets: dev build test typecheck preview publish deploy purge"
+	@echo "Targets: dev build test typecheck preview publish deploy purge bump-version release"

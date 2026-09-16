@@ -3493,6 +3493,13 @@
         text-align: center;
       }
 
+      .settings-version {
+        margin-top: 6px;
+        color: #777;
+        font-size: 0.6rem;
+        letter-spacing: 0.05em;
+      }
+
       .settings-help-button {
         width: 100%;
         margin-top: 12px;
